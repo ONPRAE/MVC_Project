@@ -1,0 +1,142 @@
+﻿@model IEnumerable<pjadv.Models.Project>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<style>
+    .table-container {
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        padding: 10px;
+        background-color: #f9f9f9;
+        margin-top: 20px;
+        overflow: auto;
+    }
+
+        .table-container h1 {
+            margin-top: 0;
+        }
+
+        .table-container table {
+            width: 100%;
+        }
+
+        .table-container th,
+        .table-container td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        .table-container th {
+            background-color: #f2f2f2;
+        }
+
+    .btn-group {
+        display: flex;
+    }
+
+        .btn-group a {
+            margin-right: 5px;
+            border-radius: 15px; /* เพิ่มความโค้งมนให้กับปุ่ม */
+            padding: 5px 10px; /* ปรับขนาดของปุ่ม */
+        }
+</style>
+
+<div style="display: inline-block; vertical-align: top;">
+    <h4 style="margin-top: 20px;">ค้นหาสินค้าที่ต้องการ</h4>
+
+    <!-- Container for search input and icon -->
+    <div style="position: relative;">
+        <!-- Change color of the search icon by adding style -->
+        <i class="fa fa-search" aria-hidden="true" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: gray;"></i>
+        <input type="text" id="searchInput" placeholder="Search Your Product Name " style="padding-left: 30px;">
+        <!-- Search button -->
+        <button id="searchButton" onclick="searchTable()">Search</button>
+    </div>
+</div>
+
+<div style="float: right; margin-top: 20px;">
+    <div style="border: 1px solid #ccc; padding: 10px; display: inline-block; border-radius: 10px; background-color: #f9f9f9;">
+        <h4 style="margin: 0;">เพิ่มสินค้าที่ต้องการ</h4>
+        <hr style="margin-top: 5px; margin-bottom: 5px;">
+        <p style="margin: 0;">
+            <a asp-action="Create">
+                <button class="btn btn-primary">
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i> Add New
+                </button>
+            </a>
+        </p>
+    </div>
+</div>
+
+<h1 style="margin-top: 20px;">ตารางสินค้า</h1>
+
+
+<div class="table-container">
+    <table class="table" id="dataTable">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.productName)</th>
+                <th>@Html.DisplayNameFor(model => model.productLine)</th>
+                <th>@Html.DisplayNameFor(model => model.productScale)</th>
+                <th>@Html.DisplayNameFor(model => model.productVendor)</th>
+                <th>@Html.DisplayNameFor(model => model.productDescription)</th>
+                <th>@Html.DisplayNameFor(model => model.quantityInStock)</th>
+                <th>@Html.DisplayNameFor(model => model.salePrice)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.productName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.productLine)</td>
+                    <td>@Html.DisplayFor(modelItem => item.productScale)</td>
+                    <td>@Html.DisplayFor(modelItem => item.productVendor)</td>
+                    <td>@Html.DisplayFor(modelItem => item.productDescription)</td>
+                    <td>@Html.DisplayFor(modelItem => item.quantityInStock)</td>
+                    <td>@Html.DisplayFor(modelItem => item.salePrice)</td>
+                    <td>
+                        <div class="btn-group">
+                            <a asp-action="Edit" asp-route-id="@item.productCode" class="btn btn-primary btn-sm">
+                                <i class="fa fa-edit" aria-hidden="true"></i> Edit
+                            </a>
+                            <a asp-action="Details" asp-route-id="@item.productCode" class="btn btn-info btn-sm">
+                                <i class="fa fa-info-circle" aria-hidden="true"></i> Details
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@item.productCode" class="btn btn-danger btn-sm">
+                                <i class="fa fa-trash" aria-hidden="true"></i> Delete
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section scripts {
+    <script>
+        function searchTable() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("searchInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("dataTable");
+            tr = table.getElementsByTagName("tr");
+
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];// Change index as per the column you want to search
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+}

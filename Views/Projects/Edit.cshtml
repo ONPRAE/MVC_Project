@@ -1,0 +1,69 @@
+﻿@model pjadv.Models.Project
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Project</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="productCode" />
+            <div class="form-group">
+                <label asp-for="productName" class="control-label"></label>
+                <input asp-for="productName" class="form-control" />
+                <span asp-validation-for="productName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="productLine" class="control-label"></label>
+                <input asp-for="productLine" class="form-control" />
+                <span asp-validation-for="productLine" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="productScale" class="control-label"></label>
+                <input asp-for="productScale" class="form-control" />
+                <span asp-validation-for="productScale" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="productVendor" class="control-label"></label>
+                <input asp-for="productVendor" class="form-control" />
+                <span asp-validation-for="productVendor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="productDescription" class="control-label"></label>
+                <input asp-for="productDescription" class="form-control" />
+                <span asp-validation-for="productDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="quantityInStock" class="control-label"></label>
+                <input asp-for="quantityInStock" class="form-control" />
+                <span asp-validation-for="quantityInStock" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="buyPrice" class="control-label"></label>
+                <input asp-for="buyPrice" class="form-control" />
+                <span asp-validation-for="buyPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="salePrice" class="control-label"></label>
+                <input asp-for="salePrice" class="form-control" />
+                <span asp-validation-for="salePrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
